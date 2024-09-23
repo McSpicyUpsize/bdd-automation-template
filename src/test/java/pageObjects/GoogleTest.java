@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class GoogleTest {
 
-//    @Test
+    @Test
     public void openGooglePage(){
         //webdriver to setup chromedriver
         WebDriverManager.chromedriver().setup();

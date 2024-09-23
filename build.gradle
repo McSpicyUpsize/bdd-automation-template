@@ -2,28 +2,59 @@ plugins {
     id 'java'
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    // JUnit 5 BOM (Bill of Materials) to manage versions
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.24.0'
-    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.9.2'
 
-    // JUnit 5
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+    // Selenium 4.24.0
+    implementation 'org.seleniumhq.selenium:selenium-java:4.24.0'
+
+    // WebDriverManager 5.9.2
+    implementation 'io.github.bonigarcia:webdrivermanager:5.9.2'
 
     // Cucumber
     testImplementation 'io.cucumber:cucumber-java:6.10.4'
-    testImplementation 'io.cucumber:cucumber-junit:6.10.4'
+    testImplementation 'io.cucumber:cucumber-junit-platform-engine:6.10.4'
+
+    // JUnit Platform Suite API
+    testImplementation 'org.junit.platform:junit-platform-suite-api:1.10.0'
+}
+
+sourceSets {
+    test {
+        resources {
+            srcDir 'src/test/resources'
+        }
+    }
+}
+
+tasks.withType(Copy) {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 test {
     useJUnitPlatform()
+}
+
+task cucumberTest(type: Test) {
+    useJUnitPlatform {
+        includeEngines 'cucumber'
+    }
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    outputs.upToDateWhen { false }
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        showStandardStreams = true
+    }
 }
