@@ -33,7 +33,7 @@ public class GoogleSearchPageTest {
         googleSearchPage.openGoogleHomePage();
 
         // Search for a query
-        googleSearchPage.searchFor("Chiah Soon Chua");
+        googleSearchPage.searchFor("Selenium ChromeDriver");
 
         // Wait for 5 seconds
         try {
