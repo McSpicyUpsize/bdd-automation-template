@@ -21,7 +21,7 @@ public class GoogleTest {
         driver.manage().window().maximize();
         driver.get("https://www.google.com");
         WebElement inputSearch = driver.findElement(By.name("q"));
-        inputSearch.sendKeys("Selenium ChromDriver" + Keys.ENTER);
+        inputSearch.sendKeys("Selenium ChromeDriver" + Keys.ENTER);
 
         //wait for 5 sec
         try {
