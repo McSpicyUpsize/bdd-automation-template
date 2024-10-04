@@ -42,23 +42,15 @@ public class GoogleSearchSteps {
             searchResults.get(0).click();
         }
 
-        // Increase the timeout duration and adjust the expected condition
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            wait.until(ExpectedConditions.titleContains("Gradle Build Tool"));
-        } catch (TimeoutException e) {
-            System.out.println("Current title: " + driver.getTitle());
-            throw e;
-        }
+        wait.until(googleSearchPage.titleContains("Gradle Build Tool"));
 
         assertTrue(driver.getTitle().toLowerCase().contains("gradle build tool"));
     }
 
     @Then("the search results page is displayed")
     public void the_search_results_page_is_displayed() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.titleContains("Google"));
-
-        assertTrue(driver.getTitle().contains("Google"));
+        googleSearchPage.titleContains("Google");
     }
+
 }

@@ -3,6 +3,8 @@ package base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class BasePageObject {
 
@@ -37,6 +39,15 @@ public class BasePageObject {
             return find(locator).isDisplayed();
         }catch (Exception e) {
             return false;
+        }
+    }
+
+    public ExpectedCondition<Boolean> titleContains(String title) {
+        try {
+            return ExpectedConditions.titleContains(title);
+        }catch (Exception e) {
+            System.out.println("Current title: " + driver.getTitle());
+            return null;
         }
     }
 }
